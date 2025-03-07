@@ -6,13 +6,17 @@ import jakarta.persistence.*;
 @Table(name = "book")
 public class Book {
     @Id
-    String isbn;
+    private String isbn;
 
-    String title;
+    private String title;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "author_id")
-    Author author;
+    private Author author;
+
+    public Book() {
+
+    }
 
     public Book(String isbn, String title, Author author) {
         this.isbn = isbn;
@@ -32,7 +36,7 @@ public class Book {
         return author;
     }
 
-    public BookBuilder builder() {
+    public static BookBuilder builder() {
         return new BookBuilder();
     }
 
