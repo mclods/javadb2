@@ -7,12 +7,17 @@ import jakarta.persistence.*;
 public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "author_id_seq")
-    private final Integer id;
-    private final Short age;
-    private final String name;
+    private Integer id;
 
-    public Author(Integer id, Short age, String name) {
-        this.id = id;
+    private Short age;
+
+    private String name;
+
+    public Author() {
+
+    }
+
+    public Author(Short age, String name) {
         this.age = age;
         this.name = name;
     }
@@ -29,19 +34,13 @@ public class Author {
         return name;
     }
 
-    public AuthorBuilder builder() {
+    public static AuthorBuilder builder() {
         return new AuthorBuilder();
     }
 
     public static class AuthorBuilder {
-        Integer id;
         Short age;
         String name;
-
-        public AuthorBuilder id(Integer id) {
-            this.id = id;
-            return this;
-        }
 
         public AuthorBuilder age(Short age) {
             this.age = age;
@@ -54,7 +53,7 @@ public class Author {
         }
 
         public Author build() {
-            return new Author(id, age, name);
+            return new Author(age, name);
         }
     }
 
