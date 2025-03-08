@@ -86,4 +86,45 @@ public class AuthorRepositoryIntegrationTests {
         Optional<Author> result = authorRepository.findById(author.getId());
         assertThat(result).isEmpty();
     }
+
+    @Test
+    @DisplayName("Test find author by age less than")
+    void testFindAuthorByAgeLessThan() {
+        Author authorA = TestDataUtils.testAuthorA();
+        Author authorB = TestDataUtils.testAuthorB();
+        Author authorC = TestDataUtils.testAuthorC();
+
+        authorRepository.save(authorA);
+        authorRepository.save(authorB);
+        authorRepository.save(authorC);
+
+        Iterable<Author> result = authorRepository.findByAgeLessThan((short)45);
+        assertThat(result).hasSize(1);
+        assertThat(result).extracting(
+                Author::getName,
+                Author::getAge
+        ).containsExactly(
+                tuple("Dennis Levi", (short)44)
+        );
+    }
+
+    @Test
+    @DisplayName("Test find author by age greater than")
+    void testFindAuthorByAgeGreaterThan() {
+        Author authorA = TestDataUtils.testAuthorA();
+        Author authorB = TestDataUtils.testAuthorB();
+        Author authorC = TestDataUtils.testAuthorC();
+
+        authorRepository.save(authorA);
+        authorRepository.save(authorB);
+        authorRepository.save(authorC);
+        Iterable<Author> result = authorRepository.findAuthorAgeGreaterThan((short)45);
+        assertThat(result).hasSize(1);
+        assertThat(result).extracting(
+                Author::getName,
+                Author::getAge
+        ).containsExactly(
+                tuple("Jeremy Reiner", (short)56)
+        );
+    }
 }
