@@ -1,2 +1,2 @@
 # java-db
-Database Application made using Spring JPA.
+Database Application made using Spring Data JPA.
