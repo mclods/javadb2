@@ -34,6 +34,14 @@ public class Author {
         return name;
     }
 
+    public void setAge(short age) {
+        this.age = age;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public static AuthorBuilder builder() {
         return new AuthorBuilder();
     }
